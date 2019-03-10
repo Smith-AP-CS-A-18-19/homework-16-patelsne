@@ -6,8 +6,14 @@ public class Homework16 {
 	 * multiplication is repeated addition
 	 */
 	public static int problem1(int a, int b) {
+		if(b == 0){
+			return 0;
+		}else{
+			return (a + problem1(a, b-1));
+		}
 
 	}
+
 
 	/* This problem should calculate and return the value
 	 * of a to the b power recursively. You cannot use
@@ -16,7 +22,11 @@ public class Homework16 {
 	 * exponentiation is repeated multiplication
 	 */
 	public static int problem2(int a, int b) {
-
+		if(b == 0){
+			return 1;
+		} else{
+			return (problem1(a,problem2(a,b-1)));
+		}
 	}
 
 	/* Recursively find the minimum value in the given
@@ -27,11 +37,23 @@ public class Homework16 {
 	 * half of the array
 	 */
 	public static int problem3(int[] arr) {
-
+		return problem3(arr,0,arr.length);
 	}
 
 	private static int problem3(int[] arr, int start, int end) {
-
+		int length = end-start;
+		if(length <= 1){
+			return arr[start];
+		}
+		int mid = start + length/2;
+		int min = 0;
+		if(problem3(arr,start,mid) < problem3(arr,mid,end)){
+			min = problem3(arr,start,mid);
+		}
+		if(problem3(arr,mid,end)<problem3(arr,start,mid)){
+			min = problem3(arr,mid,end);
+		}
+		return min;
 	}
 
 	/* Recursively find the sum of the digits of
@@ -40,7 +62,13 @@ public class Homework16 {
 	 * and the remaining numbers are num / 10
 	 */
 	public static int problem4(int num) {
-
+		if((num/10) < 1){
+			return num % 10;
+		}
+		int digit = num%10;
+		int newNum = num/10;
+		int sum = digit + problem4(newNum);
+		return sum;
 	}
 
 	/* We have bunnies standing in a line,
@@ -56,6 +84,20 @@ public class Homework16 {
 	 * problem5(2) → 5
 	 */
 	 public static int problem5(int bunnies) {
+		 int bunVal = 0;
+		 if(bunnies%2 == 0){
+			 bunVal = 3;
+		 }else{
+			 bunVal = 2;
+		 }
+		 if(bunnies == 0){
+			 return 0;
+		 } else if(bunnies == 1){
+			 return 2;
+		 } else{
+			 int sum = bunVal + problem5(bunnies-1);
+			 return sum;
+		 }
 
 	 }
 
